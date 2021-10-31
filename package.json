@@ -1,0 +1,48 @@
+{
+  "name": "babel-plugin-export-from-transform",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "lint": "eslint . --ext=.js,.ts,.tsx --fix",
+    "build": "npm run build:es & npm run build:commonjs",
+    "postbuild": "npm run build:types",
+    "build:es": "babel src -d es --extensions .ts,.tsx --delete-dir-on-start",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src -d lib --extensions .ts,.tsx --delete-dir-on-start",
+    "build:types": "tsc --declarationDir es & tsc --declarationDir lib",
+    "build:docs": "dumi build",
+    "preversion": "npm run build",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint",
+      "prettier --write"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@baertang/babel-preset-lib": "^0.0.5-alpha.0",
+    "@baertang/eslint-config": "^0.0.5-alpha.0",
+    "@baertang/prettier-config": "^0.0.5-alpha.0",
+    "@baertang/stylelint-config": "^0.0.5-alpha.0",
+    "coveralls": "^3.0.6",
+    "husky": "^7.0.4",
+    "lint-staged": "^10.2.8",
+    "np": "^6.2.0",
+    "typescript": "^4.4.4"
+  },
+  "files": [
+    "src",
+    "lib",
+    "package.json",
+    "README.md"
+  ]
+}
